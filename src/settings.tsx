@@ -1,6 +1,6 @@
 import { usePluginConfig } from "./utils/hooks";
 import { defineSettingsPanels } from "qqntim-settings";
-import { Dropdown, Input, SettingsBox, SettingsBoxItem, SettingsSection, Switch } from "qqntim-settings/components";
+import { Input, SettingsBox, SettingsBoxItem, SettingsSection, Switch } from "qqntim-settings/components";
 import { env } from "qqntim/renderer";
 import { useMemo } from "react";
 import { getPluginConfig } from "./config";
@@ -8,42 +8,32 @@ import { getPluginConfig } from "./config";
 export default class Entry implements QQNTim.Entry.Renderer {
     constructor() {
         // 如果不需要设置界面，将下一行注释掉即可；如果需要在设置项目旁边加一个小图标，请将 `undefined` 改为一段 HTML 代码（可以是 `<svg>`, `<img>` 等等）。
-        defineSettingsPanels(["模板插件设置", SettingsPanel, undefined]);
+        defineSettingsPanels(["Markdown 渲染插件", SettingsPanel, undefined]);
     }
 }
 
 function SettingsPanel({ config: _config, setConfig: _setConfig }: QQNTim.Settings.PanelProps) {
     const [pluginConfig, setPluginConfig] = usePluginConfig(_config, _setConfig);
-    const currentPluginConfigString = useMemo(() => JSON.stringify(getPluginConfig(env.config.plugins.config)), []);
+    const currentPluginConfig = useMemo(() => getPluginConfig(env.config.plugins.config), []);
 
     return (
         <>
+            <SettingsSection title="使用方法">
+                <SettingsBox>
+                    <SettingsBoxItem title="Markdown 消息" description={[`在消息头部插入 ${currentPluginConfig.markdownFlags.split(",").join(" 或 ")} 即可使用 Markdown 渲染你的消息。`]} />
+                    <SettingsBoxItem title="LaTeX 渲染" description={["在 Markdown 消息中将公式使用 $ 包裹以使用内联模式（Inline Mode）显示，或将公式使用 $$ 包裹以使用外显模式（Display Mode）显示。"]} />
+                </SettingsBox>
+            </SettingsSection>
             <SettingsSection title="插件设置">
                 <SettingsBox>
-                    <SettingsBoxItem title="当前生效的插件配置：" description={[currentPluginConfigString]} />
-                    <SettingsBoxItem title="开关" description={["这是一个开关。", `当前状态为：${pluginConfig.switchConfigItem ? "开" : "关"}`]}>
-                        <Switch checked={pluginConfig.switchConfigItem} onToggle={(state) => setPluginConfig("switchConfigItem", state)} />
+                    <SettingsBoxItem title="为所有消息启用" description={["将所有消息都视为 Markdown 消息（不推荐）。"]} isLast={pluginConfig.renderEverything}>
+                        <Switch checked={pluginConfig.renderEverything} onToggle={(state) => setPluginConfig("renderEverything", state)} />
                     </SettingsBoxItem>
-                    {pluginConfig.switchConfigItem && (
-                        <SettingsBoxItem title="另一个开关" description={["这是另一个开关。", `当前状态为：${pluginConfig.anotherSwitchConfigItem ? "开" : "关"}`]}>
-                            <Switch checked={pluginConfig.anotherSwitchConfigItem} onToggle={(state) => setPluginConfig("anotherSwitchConfigItem", state)} />
+                    {!pluginConfig.renderEverything && (
+                        <SettingsBoxItem title="Markdown 标记" description={["包含此标记的消息将会被视为 Markdown 消息。", "支持多个标记，请使用英文逗号（,）分割。"]} isLast={true}>
+                            <Input value={pluginConfig.markdownFlags} onChange={(state) => setPluginConfig("markdownFlags", state)} />
                         </SettingsBoxItem>
                     )}
-                    <SettingsBoxItem title="下拉菜单" description={["这是一个下拉菜单。", `当前状态为：${pluginConfig.dropdownConfigItem}`]}>
-                        <Dropdown
-                            items={[
-                                ["A" as const, "我是 A 选项"],
-                                ["B" as const, "我是 B 选项"],
-                                ["C" as const, "我是 C 选项"],
-                            ]}
-                            selected={pluginConfig.dropdownConfigItem}
-                            onChange={(state) => setPluginConfig("dropdownConfigItem", state)}
-                            width="150px"
-                        />
-                    </SettingsBoxItem>
-                    <SettingsBoxItem title="输入框" description={["这是一个输入框。", `当前状态为：${pluginConfig.inputConfigItem}`]} isLast={true}>
-                        <Input value={pluginConfig.inputConfigItem} onChange={(state) => setPluginConfig("inputConfigItem", state)} />
-                    </SettingsBoxItem>
                 </SettingsBox>
             </SettingsSection>
         </>
