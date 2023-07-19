@@ -1,4 +1,48 @@
-# QQNTim 模板插件
+# QQNTim Markdown 及 LaTeX 渲染插件
+
+## 简介
+
+本插件让 QQNT 支持 Markdown 及 LaTeX 渲染。需要安装 [QQNTim 3.0 及以上版本](https://github.com/Flysoft-Studio/QQNTim) 才能使用。
+
+效果图：
+
+![截图](.github/screenshot.png)
+
+效果图中使用的 Markdown：
+
+````md
+<md>
+### 标题
+
+正常、**粗体**、~~删除线~~、_斜体_、`代码 code`
+
+```bash
+echo "代码文本" > /dev/null
+```
+
+表情符号和 Markdown 混合：**你好[表情]文本**
+
+图片：[图片]
+
+表格：
+
+| 名称     | 说明     |
+| -------- | -------- |
+| 项 目 一 | 说 明 一 |
+| 项 目 二 | 说 明 二 |
+
+$$\sum_{k=1}^n k^2 = \frac{1}{2} n (n+1)$$
+````
+
+## 使用
+
+### Markdown 消息
+
+在消息头部插入 `<md>` 或 `<markdown>`（可自定义）即可使用 Markdown 渲染你的消息。
+
+### LaTeX 渲染
+
+**在 Markdown 消息**中使用 `$` 包裹公式以使用内联模式（Inline Mode）显示公式，或使用 `$$` 包裹公式以使用外显模式（Display Mode）显示公式。
 
 ## 开发
 

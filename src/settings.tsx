@@ -21,7 +21,7 @@ function SettingsPanel({ config: _config, setConfig: _setConfig }: QQNTim.Settin
             <SettingsSection title="使用方法">
                 <SettingsBox>
                     <SettingsBoxItem title="Markdown 消息" description={[`在消息头部插入 ${currentPluginConfig.markdownFlags.split(",").join(" 或 ")} 即可使用 Markdown 渲染你的消息。`]} />
-                    <SettingsBoxItem title="LaTeX 渲染" description={["在 Markdown 消息中将公式使用 $ 包裹以使用内联模式（Inline Mode）显示，或将公式使用 $$ 包裹以使用外显模式（Display Mode）显示。"]} />
+                    <SettingsBoxItem title="LaTeX 渲染" description={["在 Markdown 消息中使用 $ 包裹公式以使用内联模式（Inline Mode）显示公式，或使用 $$ 包裹公式以使用外显模式（Display Mode）显示公式。"]} />
                 </SettingsBox>
             </SettingsSection>
             <SettingsSection title="插件设置">
