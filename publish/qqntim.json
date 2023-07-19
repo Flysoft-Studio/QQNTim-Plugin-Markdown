@@ -3,7 +3,7 @@
     "id": "markdown",
     "name": "Markdown",
     "description": "支持显示 Markdown 消息并渲染 LaTeX 公式。",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "Flysoft",
     "injections": [
         {
