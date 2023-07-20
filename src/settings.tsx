@@ -1,9 +1,9 @@
+import { getPluginConfig } from "./config";
 import { usePluginConfig } from "./utils/hooks";
 import { defineSettingsPanels } from "qqntim-settings";
 import { Input, SettingsBox, SettingsBoxItem, SettingsSection, Switch } from "qqntim-settings/components";
 import { env } from "qqntim/renderer";
 import { useMemo } from "react";
-import { getPluginConfig } from "./config";
 
 export default class Entry implements QQNTim.Entry.Renderer {
     constructor() {

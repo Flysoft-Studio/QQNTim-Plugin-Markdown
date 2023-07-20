@@ -1,11 +1,11 @@
-import MarkdownIt from "markdown-it";
-import sanitizeHtml from "sanitize-html";
 import { PluginConfig, getPluginConfig } from "./config";
-import { env, utils } from "qqntim/renderer";
 import { s } from "./utils/sep";
+import { randomUUID } from "crypto";
 import { decode } from "html-entities";
 import katex, { KatexOptions } from "katex";
-import { randomUUID } from "crypto";
+import MarkdownIt from "markdown-it";
+import { env, utils } from "qqntim/renderer";
+import sanitizeHtml from "sanitize-html";
 
 export default class Entry implements QQNTim.Entry.Renderer {
     private md = new MarkdownIt({ html: true });
